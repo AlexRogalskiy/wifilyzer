@@ -37,7 +37,7 @@ import lombok.ToString;
  *
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode
 @ToString
 public class EmbeddedAntennaMetrics implements IBaseDeviceMetrics {
 
@@ -50,10 +50,7 @@ public class EmbeddedAntennaMetrics implements IBaseDeviceMetrics {
     private double coefficientC;
 
     public EmbeddedAntennaMetrics() {
-        this(EmbeddedAntennaMetrics.DEFAULT_ANTENNA_METRICS_A,
-                EmbeddedAntennaMetrics.DEFAULT_ANTENNA_METRICS_B,
-                EmbeddedAntennaMetrics.DEFAULT_ANTENNA_METRICS_C
-        );
+        this(DEFAULT_ANTENNA_METRICS_A, DEFAULT_ANTENNA_METRICS_B, DEFAULT_ANTENNA_METRICS_C);
     }
 
     public EmbeddedAntennaMetrics(double coefficientA, double coefficientB, double coefficientC) {

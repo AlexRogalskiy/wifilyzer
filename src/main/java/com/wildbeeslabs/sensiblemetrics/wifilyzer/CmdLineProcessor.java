@@ -48,7 +48,7 @@ import org.kohsuke.args4j.spi.ExplicitBooleanOptionHandler;
  *
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode
 @ToString
 public final class CmdLineProcessor {
 

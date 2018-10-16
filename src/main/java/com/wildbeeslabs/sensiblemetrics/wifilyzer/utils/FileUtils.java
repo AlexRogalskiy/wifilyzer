@@ -57,7 +57,7 @@ import org.apache.log4j.Logger;
  * @since 2017-12-12
  *
  */
-public class FileUtils {
+public final class FileUtils {
 
     /**
      * Default logger instance

@@ -21,29 +21,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.wildbeeslabs.sensiblemetrics.wifilyzer.filter;
+package com.wildbeeslabs.sensiblemetrics.wifilyzer.entities;
 
-import com.wildbeeslabs.sensiblemetrics.wifilyzer.filter.interfaces.IBaseFilter;
-
+import java.math.BigDecimal;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import lombok.Value;
 
 /**
- * Arma filter class
+ * Network location model
  *
  * @author alexander.rogalskiy
  * @version 1.0
  * @since 2017-12-12
  *
  */
-@Value(staticConstructor = "getInstance")
+@Data
 @EqualsAndHashCode
 @ToString
-public class ArmaFilter implements IBaseFilter<Double, Double> {
+public class NetworkLocationEntity {
 
-    @Override
-    public Double applyFilter(final Double rssi) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    private BigDecimal latitude;
+    private BigDecimal longitude;
+    private BigDecimal altitude;
 }

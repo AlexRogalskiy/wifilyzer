@@ -28,11 +28,13 @@ package com.wildbeeslabs.sensiblemetrics.wifilyzer.filter.interfaces;
  *
  * @author alexander.rogalskiy
  * @version 1.0
+ * @param <T>
+ * @param <E>
  * @since 2017-12-12
  *
  */
 @FunctionalInterface
-public interface IBaseFilter {
+public interface IBaseFilter<T, E> {
 
-    double applyFilter(double rssi);
+    E applyFilter(final T value);
 }

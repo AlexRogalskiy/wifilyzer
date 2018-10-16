@@ -21,42 +21,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 package com.wildbeeslabs.sensiblemetrics.wifilyzer.entities.interfaces;
 
-import com.wildbeeslabs.sensiblemetrics.wifilyzer.filter.interfaces.IBaseFilter;
-import com.wildbeeslabs.sensiblemetrics.wifilyzer.metrics.interfaces.IBaseDeviceMetrics;
-
 /**
- * Beacon interface declaration
+ * Coordinates interface declaration
  *
  * @author alexander.rogalskiy
  * @version 1.0
  * @since 2017-12-12
  *
  */
-public interface IBeaconEntity {
-
-    double getDistance();
-
-    String getMacAddress();
-
-    void setMacAddress(final String macAddress);
-
-    double getRssi();
-
-    void setRssi(double rssi);
-
-    int getTxPower();
-
-    void setTxPower(int txPower);
-
-    IBaseFilter getRssiFilter();
-
-    void setRssiFilter(final IBaseFilter filter);
-
-    IBaseDeviceMetrics getDeviceMetrics();
-
-    void setDeviceMetrics(final IBaseDeviceMetrics deviceMetrics);
-
-    void calculateDistanceFromRssi();
+public interface INetworkLocation {
+    
 }

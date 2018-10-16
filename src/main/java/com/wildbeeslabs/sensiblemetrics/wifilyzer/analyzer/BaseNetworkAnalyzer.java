@@ -25,10 +25,11 @@ package com.wildbeeslabs.sensiblemetrics.wifilyzer.analyzer;
 
 import com.wildbeeslabs.sensiblemetrics.wifilyzer.CmdLineProcessor;
 import com.wildbeeslabs.sensiblemetrics.wifilyzer.analyzer.interfaces.IBaseNetworkAnalyzer;
-import com.wildbeeslabs.sensiblemetrics.wifilyzer.entities.BeaconEntity;
+import com.wildbeeslabs.sensiblemetrics.wifilyzer.entities.NetworkEntity;
 import com.wildbeeslabs.sensiblemetrics.wifilyzer.filter.KalmanFilter;
 import com.wildbeeslabs.sensiblemetrics.wifilyzer.metrics.EmbeddedAntennaMetrics;
 import com.wildbeeslabs.sensiblemetrics.wifilyzer.utils.FileUtils;
+import com.wildbeeslabs.sensiblemetrics.wifilyzer.utils.NumberUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,7 +56,7 @@ import org.apache.log4j.Logger;
  *
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode
 @ToString
 public class BaseNetworkAnalyzer implements IBaseNetworkAnalyzer {
 
@@ -68,7 +69,7 @@ public class BaseNetworkAnalyzer implements IBaseNetworkAnalyzer {
      */
     public static final String DEFAULT_TOKEN_DELIMITER = "[,./?;:!-\"\\s]+?";
 
-    final CmdLineProcessor processor;
+    private final CmdLineProcessor processor;
 
     public BaseNetworkAnalyzer(final CmdLineProcessor processor) {
         getLogger().debug("Initializing base network analyzer...");
@@ -86,16 +87,16 @@ public class BaseNetworkAnalyzer implements IBaseNetworkAnalyzer {
     public void process(int i) {
         final KalmanFilter kalmanFilter = new KalmanFilter();
         final List<String> input = FileUtils.readAllLines(this.processor.getInputSource());
-        final List<Integer> list = getFilteredStream(input.stream(), this.getDefaultFilter(), BaseNetworkAnalyzer.DEFAULT_TOKEN_DELIMITER).mapToInt(Integer::parseInt).boxed().collect(Collectors.toList());
+        final List<Double> list = getFilteredStream(input.stream(), this.getDefaultFilter(), DEFAULT_TOKEN_DELIMITER).mapToDouble(Double::parseDouble).boxed().collect(Collectors.toList());
         //list.forEach(d -> System.out.println(d * -1 + "," + (int) kalmanFilter.applyFilter(d) * -1));
 
-        final BeaconEntity beaconEntity = new BeaconEntity(this.processor.getBssid(), -59);
-        beaconEntity.setDeviceMetrics(new EmbeddedAntennaMetrics());
-        beaconEntity.setRssiFilter(new KalmanFilter());
+        final NetworkEntity networkEntity = new NetworkEntity(this.processor.getBssid(), -59);
+        networkEntity.setDeviceMetrics(new EmbeddedAntennaMetrics());
+        networkEntity.setRssiFilter(new KalmanFilter());
         final List<String> result = new ArrayList<>();
         list.forEach(d -> {
-            beaconEntity.setRssi(d);
-            result.add(d * -1 + "," + (int) kalmanFilter.applyFilter(d) * -1 + "," + (int) beaconEntity.getDistance());
+            networkEntity.setRssi(d);
+            result.add(d * -1 + "," + NumberUtils.format(kalmanFilter.applyFilter(d) * -1) + "," + (int) networkEntity.getDistance());
         });
         if (Objects.nonNull(this.processor.getOutputSource())) {
             FileUtils.writeFile(this.processor.getOutputSource(), result);

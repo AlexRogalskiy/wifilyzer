@@ -58,7 +58,7 @@ import org.apache.log4j.Logger;
  * @since 2017-12-12
  *
  */
-public class ConverterUtils {
+public final class ConverterUtils {
 
     /**
      * Default logger instance

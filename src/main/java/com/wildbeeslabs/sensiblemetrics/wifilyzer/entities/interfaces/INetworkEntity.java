@@ -21,29 +21,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.wildbeeslabs.sensiblemetrics.wifilyzer.filter;
+package com.wildbeeslabs.sensiblemetrics.wifilyzer.entities.interfaces;
 
-import com.wildbeeslabs.sensiblemetrics.wifilyzer.filter.interfaces.IBaseFilter;
-
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-import lombok.Value;
+import com.wildbeeslabs.sensiblemetrics.wifilyzer.metrics.interfaces.IBaseDeviceMetrics;
 
 /**
- * Arma filter class
+ * Network interface declaration
  *
  * @author alexander.rogalskiy
  * @version 1.0
  * @since 2017-12-12
  *
  */
-@Value(staticConstructor = "getInstance")
-@EqualsAndHashCode
-@ToString
-public class ArmaFilter implements IBaseFilter<Double, Double> {
+public interface INetworkEntity {
 
-    @Override
-    public Double applyFilter(final Double rssi) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    double getDistance();
+
+    String getBssid();
+
+    void setBssid(final String bssid);
+
+    double getRssi();
+
+    void setRssi(double rssi);
+
+    int getTxPower();
+
+    void setTxPower(int txPower);
+
+    IBaseDeviceMetrics getDeviceMetrics();
+
+    void setDeviceMetrics(final IBaseDeviceMetrics deviceMetrics);
+
+    void calculateDistanceFromRssi();
 }

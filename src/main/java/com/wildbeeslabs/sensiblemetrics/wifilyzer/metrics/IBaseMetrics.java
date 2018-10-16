@@ -21,29 +21,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.wildbeeslabs.sensiblemetrics.wifilyzer.filter;
-
-import com.wildbeeslabs.sensiblemetrics.wifilyzer.filter.interfaces.IBaseFilter;
-
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-import lombok.Value;
+package com.wildbeeslabs.sensiblemetrics.wifilyzer.metrics;
 
 /**
- * Arma filter class
+ * Metrics interface declaration
  *
  * @author alexander.rogalskiy
  * @version 1.0
+ * @param <T>
+ * @param <E>
  * @since 2017-12-12
  *
  */
-@Value(staticConstructor = "getInstance")
-@EqualsAndHashCode
-@ToString
-public class ArmaFilter implements IBaseFilter<Double, Double> {
+@FunctionalInterface
+public interface IBaseMetrics<T, E> {
 
-    @Override
-    public Double applyFilter(final Double rssi) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    E process(final T value);
 }

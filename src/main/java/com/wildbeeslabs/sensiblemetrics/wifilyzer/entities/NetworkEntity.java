@@ -23,9 +23,13 @@
  */
 package com.wildbeeslabs.sensiblemetrics.wifilyzer.entities;
 
-import com.wildbeeslabs.sensiblemetrics.wifilyzer.entities.interfaces.IBeaconEntity;
+import com.wildbeeslabs.sensiblemetrics.wifilyzer.entities.interfaces.INetworkEntity;
+import com.wildbeeslabs.sensiblemetrics.wifilyzer.entities.interfaces.INetworkConfiguration;
+import com.wildbeeslabs.sensiblemetrics.wifilyzer.entities.interfaces.INetworkLocation;
 import com.wildbeeslabs.sensiblemetrics.wifilyzer.filter.interfaces.IBaseFilter;
 import com.wildbeeslabs.sensiblemetrics.wifilyzer.metrics.interfaces.IBaseDeviceMetrics;
+
+import java.time.LocalDateTime;
 
 import java.util.Objects;
 
@@ -34,7 +38,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * Beacon entity class
+ * Network model
  *
  * @author alexander.rogalskiy
  * @version 1.0
@@ -42,41 +46,50 @@ import lombok.ToString;
  *
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode
 @ToString
-public class BeaconEntity implements IBeaconEntity {
+public class NetworkEntity implements INetworkEntity {
 
     private double distance;
-    private String macAddress;
+    private String bssid;
+    private String ssid;
     private double rssi;
+    private int channel;
+    private double frequency;
     private int txPower;
-    private IBaseFilter rssiFilter;
-    private IBaseDeviceMetrics deviceMetrics;
+    private LocalDateTime timestamp;
+
     private boolean isFilterApplied = false;
     private boolean isDistanceCalculated = false;
 
-    public BeaconEntity(final String macAddress, int txPower) {
-        this.macAddress = macAddress;
+    private INetworkLocation location;
+    private INetworkConfiguration configuration;
+
+    private IBaseFilter<Double, Double> rssiFilter;
+    private IBaseDeviceMetrics deviceMetrics;
+
+    public NetworkEntity(final String bssid, int txPower) {
+        this.bssid = bssid;
         this.txPower = txPower;
     }
 
-    public BeaconEntity(final String macAddress, double rssi, int txPower) {
-        this.macAddress = macAddress;
+    public NetworkEntity(final String bssid, double rssi, int txPower) {
+        this.bssid = bssid;
         this.rssi = rssi;
         this.txPower = txPower;
     }
 
-    public BeaconEntity(final String macAddress, double rssi, int txPower, final IBaseFilter rssiFilter) {
+    public NetworkEntity(final String macAddress, double rssi, int txPower, final IBaseFilter<Double, Double> rssiFilter) {
         this(macAddress, rssi, txPower);
         this.rssiFilter = rssiFilter;
     }
 
-    public BeaconEntity(final String macAddress, double rssi, int txPower, final IBaseDeviceMetrics deviceMetrics) {
+    public NetworkEntity(final String macAddress, double rssi, int txPower, final IBaseDeviceMetrics deviceMetrics) {
         this(macAddress, rssi, txPower);
         this.deviceMetrics = deviceMetrics;
     }
 
-    public BeaconEntity(final String macAddress, double rssi, int txPower, final IBaseFilter rssiFilter, final IBaseDeviceMetrics deviceMetrics) {
+    public NetworkEntity(final String macAddress, double rssi, int txPower, final IBaseFilter<Double, Double> rssiFilter, final IBaseDeviceMetrics deviceMetrics) {
         this(macAddress, rssi, txPower);
         this.rssiFilter = rssiFilter;
         this.deviceMetrics = deviceMetrics;

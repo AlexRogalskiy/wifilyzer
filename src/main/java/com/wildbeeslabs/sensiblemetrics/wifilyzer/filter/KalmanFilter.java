@@ -24,6 +24,7 @@
 package com.wildbeeslabs.sensiblemetrics.wifilyzer.filter;
 
 import com.wildbeeslabs.sensiblemetrics.wifilyzer.filter.interfaces.IBaseFilter;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -37,9 +38,9 @@ import lombok.ToString;
  *
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode
 @ToString
-public class KalmanFilter implements IBaseFilter {
+public class KalmanFilter implements IBaseFilter<Double, Double> {
 
     /**
      * Process noise
@@ -50,7 +51,7 @@ public class KalmanFilter implements IBaseFilter {
      */
     private double measurementNoise;
     /**
-     * Calculated rssi
+     * Calculated RSSI
      */
     private double estimatedRSSI;
     /**
@@ -72,7 +73,7 @@ public class KalmanFilter implements IBaseFilter {
     }
 
     @Override
-    public double applyFilter(double rssi) {
+    public Double applyFilter(final Double rssi) {
         double priorRSSI;
         double priorErrorCovarianceRSSI;
         if (!this.isInitialized) {

@@ -24,7 +24,7 @@
 package com.wildbeeslabs.sensiblemetrics.wifilyzer.metrics.interfaces;
 
 /**
- * Device metrics interface declaration
+ * Base Device metrics interface declaration
  *
  * @author alexander.rogalskiy
  * @version 1.0

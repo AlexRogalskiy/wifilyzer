@@ -35,7 +35,7 @@ import org.apache.log4j.Logger;
  * @since 2017-12-12
  *
  */
-public class NumberUtils {
+public final class NumberUtils {
 
     /**
      * Default logger instance
@@ -48,7 +48,7 @@ public class NumberUtils {
     /**
      * Default number format instance
      */
-    private static final DecimalFormat numberFormat = new DecimalFormat(NumberUtils.DEFAULT_NUMBER_FORMAT_PATTERN);
+    private static final DecimalFormat numberFormat = new DecimalFormat(DEFAULT_NUMBER_FORMAT_PATTERN);
 
     private NumberUtils() {
         // PRIVATE EMPTY CONSTRUCTOR
